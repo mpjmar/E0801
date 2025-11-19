@@ -10,7 +10,8 @@ public class App {
 			return esPrimo;
 		int i = 3;
 		while (i < num / 2 && esPrimo) {
-			esPrimo = num % i == 0;
+			if (num % i == 0)
+				return (!esPrimo);
 			i++;
 		}
 		return esPrimo;
@@ -23,18 +24,21 @@ public class App {
 		return res;
 	}
 
-	public static float potencia(int base, int exp) {
-		float res = base;
-		for (int i = 0; i < exp; i++)
-			res = res * base;
+	public static int potencia(int base, int exp) {
+		int res = base;
+		for (int i = 1; i < exp; i++)
+			res *= base;
 		return res;
 	}
 
 	public static int digitos(long num) {
 		int dig = 0;
-		while (num > 0)
+		if (num == 0)
+			return 1;
+		while (num > 0) {
 			num /= 10;
 			dig++;
+		}
 		return dig;
 	}
 
@@ -106,8 +110,8 @@ public class App {
 		System.out.printf("El %d%s es primo.%n", 29, esPrimo(29) ? "" : " no");
 		System.out.printf("El siguiente primo mayor a %d es %d.%n", 23, siguientePrimo(23));
 		System.out.printf("El siguiente primo mayor a %d es %d.%n", 100, siguientePrimo(100));
-		System.out.printf("%d^%d = %f%n", 2, 10, potencia(2, 10));
-		System.out.printf("%d^(%d) = %f%n", 5, -3, potencia(5, -3));
+		System.out.printf("%d^%d = %d%n", 2, 10, potencia(2, 10));
+		System.out.printf("%d^(%d) = %d%n", 5, -3, potencia(5, -3));
 		System.out.printf("El número %d tiene %d dígito%s.%n", 0, digitos(0), digitos(0) > 1 ? "s" : "");
 		System.out.printf("El número %d tiene %d dígito%s.%n", 7, digitos(7), digitos(7) > 1 ? "s" : "");
 		System.out.printf("El número %d tiene %d dígito%s.%n", 674893123, digitos(674893123), digitos(674893123) > 1 ? "s" : "");
