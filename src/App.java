@@ -8,7 +8,7 @@ public class App {
 		boolean esPrimo = true;
 		if (num == 2)
 			return esPrimo;
-		int i = 3;
+		int i = 2;
 		while (i < num / 2 && esPrimo) {
 			if (num % i == 0)
 				return (!esPrimo);
@@ -32,9 +32,11 @@ public class App {
 	}
 
 	public static int digitos(long num) {
-		int dig = 0;
 		if (num == 0)
 			return 1;
+		if (num < 0)
+			num = -num;
+		int dig = 0;
 		while (num > 0) {
 			num /= 10;
 			dig++;
@@ -55,17 +57,26 @@ public class App {
 		return res * signo;
 	}
 
-	public static float digitoN(long num, int pos) { ///arreglar
+	public static int digitoN(long num, int pos) {
+		if (pos < 0) {
+			return -1;
+		}
+		if (num < 0) {
+			num = -num;
+		}
 		long aux = voltea(num);
-		return aux % potencia(10, pos);
+		for (int i = 0; i < pos; i++) {
+			aux /= 10;
+		}
+		return (int)(aux % 10);
 	}
 
 	public static int posicionDeDigito(long num, int dig) {
 		long aux = voltea(num);
 		int pos = 0;
 		while (aux > 0) {
-			if (aux % 10 != dig)
-				return (pos);
+			if (aux % 10 == dig)
+				return pos;
 			aux /= 10;
 			pos++;
 		}
@@ -77,9 +88,11 @@ public class App {
 	}
 
 	public static long quitaPorDelante(long num, int n) {
+		num = num * 10 + 1;
 		long aux = voltea(num);
 		long res = quitaPorDetras(aux, n);
-		return voltea(res);
+		num = voltea(res) / 10;
+		return num;
 	}
 
 	public static long pegaPorDetras(long num, int dig) {
@@ -87,15 +100,18 @@ public class App {
 	}
 
 	public static long pegaPorDelante(long num, int dig) {
+		num = num * 10 + 1;
 		long aux = voltea(num);
 		aux = aux * 10 + dig;
-		return voltea(aux);
+		num = voltea(aux) / 10;
+		return  num;
 	}
 	
 	public static long trozoDeNumero(long num, int posInicial, int posFinal) { // terminar
+		num = num * 10 + 1;
 		long aux = voltea(num);
 
-
+		num = voltea(aux) / 10;;
 		return aux;
 	}
 
@@ -127,8 +143,8 @@ public class App {
 		System.out.printf("En el %d, el dígito %d está en la posición %d.%n", 78604321, 5, posicionDeDigito(78604321, 5));
 		System.out.printf("Si al %d se le quitan por detrás %d dígito%s, se queda como %d.%n", 78604321, 4, quitaPorDetras(78604321, 4) > 1 ? "s" : "", quitaPorDetras(78604321, 4));
 		System.out.printf("Si al %d se le quitan por detrás %d dígito%s, se queda como %d.%n", 1000, 1, quitaPorDetras(1000, 1) > 1 ? "s" : "", quitaPorDetras(1000, 1));
-		System.out.printf("Si al %d se le quitan por delante %d dígito%s, se queda como %d.%n", 78604321, 4, quitaPorDelante(78604321, 1) > 1 ? "s" : "", quitaPorDetras(78604321, 1));
-		System.out.printf("Si al %d se le quitan por delante %d dígito%s, se queda como %d.%n", 78604000, 2, quitaPorDelante(78604000, 1) > 1 ? "s" : "", quitaPorDetras(78604000, 1));
+		System.out.printf("Si al %d se le quitan por delante %d dígito%s, se queda como %d.%n", 78604321, 4, quitaPorDelante(78604321, 4) > 1 ? "s" : "", quitaPorDelante(78604321, 4));
+		System.out.printf("Si al %d se le quitan por delante %d dígito%s, se queda como %d.%n", 78604000, 2, quitaPorDelante(78604000, 2) > 1 ? "s" : "", quitaPorDelante(78604000, 2));
 		System.out.printf("Si al %d se le pega por detrás el %d da el %d.%n", 567, 1, pegaPorDetras(567, 1));
 		System.out.printf("Si al %d se le pega por detrás el %d da el %d.%n", 33, 0, pegaPorDetras(33, 0));
 		System.out.printf("Si al %d se le pega por delante el %d da el %d.%n", 567, 1, pegaPorDelante(567, 1));
