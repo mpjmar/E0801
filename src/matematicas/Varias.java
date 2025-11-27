@@ -261,7 +261,7 @@ public interface Varias {
 	public static long quitaPorDelante(long num, int n) {
 		if (n > digitos(num))
 			return 0;
-		return num % (int) potencia(10, digitos(num) - n);
+		return num % (long) potencia(10, digitos(num) - n);
 	}
 
 	/**
